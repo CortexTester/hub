@@ -7,11 +7,10 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 
-@Transactional
+@Transactional("routingTransactionManager")
 @AutoConfigureTestEntityManager
 class PartyRepositoryTest : IntegrationBaseTest() {
 
@@ -21,14 +20,11 @@ class PartyRepositoryTest : IntegrationBaseTest() {
     @Autowired
     lateinit var dialectRepository: DialectRepository
 
-    @Autowired
-    lateinit var entityManager: TestEntityManager
-
     @Test
     fun `test party`() {
         var party = Party(name = "party01", url = "https://cbx.com", clientSidePartyId = 1L, apiKey = "testKey")
         partyRepository.saveAndFlush(party)
-        val p = partyRepository.findByIdOrNull(party.id!!)
+        val p = partyRepository.findByIdOrNull(party.id)
         assertThat(p).isEqualTo(party)
     }
 
@@ -36,9 +32,8 @@ class PartyRepositoryTest : IntegrationBaseTest() {
     fun `test party and dialect`() {
         var dialect1 = Dialect(name = "cbx")
         var dialect2 = Dialect(name = "pidx")
-        entityManager.persist(dialect1)
-        entityManager.persist(dialect2)
-        entityManager.flush()
+        dialectRepository.saveAndFlush(dialect1)
+        dialectRepository.saveAndFlush(dialect2)
         var party = Party(
             name = "party01",
             url = "https://cbx.com",
@@ -46,9 +41,8 @@ class PartyRepositoryTest : IntegrationBaseTest() {
             apiKey = "testKey",
             dialects = mutableListOf(dialect1, dialect2)
         )
-        entityManager.persist(party)
-        entityManager.flush()
-        val p = partyRepository.findByIdOrNull(party.id!!)
+        partyRepository.saveAndFlush(party)
+        val p = partyRepository.findByIdOrNull(party.id)
         assertThat(p).isEqualTo(party)
     }
 }

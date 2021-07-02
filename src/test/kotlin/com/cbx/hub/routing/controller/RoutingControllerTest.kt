@@ -1,8 +1,7 @@
-package com.cbx.hub.api.controller
+package com.cbx.hub.routing.controller
 
 import com.cbx.hub.IntegrationBaseTest
 import com.cbx.hub.routing.model.Dialect
-import com.cbx.hub.routing.model.Party
 import com.cbx.hub.routing.model.PartyDto
 import com.cbx.hub.routing.repository.DialectRepository
 import com.cbx.hub.routing.repository.PartyRepository
@@ -15,7 +14,7 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 
-class TestControllerTest() : IntegrationBaseTest() {
+class RoutingControllerTest() : IntegrationBaseTest() {
 
     @Autowired
     lateinit var restTemplate: TestRestTemplate
@@ -51,9 +50,10 @@ class TestControllerTest() : IntegrationBaseTest() {
 
         assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
 
-        var partyInDb = partyRepository.findByApiKeyAndClientSidePartyId(party.apiKey, party.clientSidePartyId!!.toLong())
+        var partyInDb = partyRepository.findByApiKeyAndClientSidePartyId(party.apiKey, party.clientSidePartyId.toLong())
 
         assertThat(partyInDb?.name).isEqualTo(party.name)
 
     }
+
 }

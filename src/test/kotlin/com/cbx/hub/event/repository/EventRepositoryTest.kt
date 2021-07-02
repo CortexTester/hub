@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager
 import org.springframework.transaction.annotation.Transactional
 
-@Transactional
+@Transactional("eventTransactionManager")
 @AutoConfigureTestEntityManager
 class EventRepositoryTest : IntegrationBaseTest() {
     @Autowired

@@ -46,14 +46,14 @@ class RoutingDataSourceConfiguration (){
     fun entityManagerFactory(
         builder: EntityManagerFactoryBuilder, @Qualifier("routingDataSource") dataSource: DataSource?
     ): LocalContainerEntityManagerFactoryBean? {
-        val properties: MutableMap<String, Any> = HashMap()
+//        val properties: MutableMap<String, Any> = HashMap()
 //        properties[AvailableSettings.HBM2DDL_AUTO] = "create-drop"  //todo: change to configurable
 //        properties[AvailableSettings.DIALECT] = "org.hibernate.dialect.PostgreSQLDialect"
         return builder
             .dataSource(dataSource)
 //            .properties(properties)
             .packages("com.cbx.hub.routing")
-            .persistenceUnit("party")
+//            .persistenceUnit("party")
             .build()
     }
 
