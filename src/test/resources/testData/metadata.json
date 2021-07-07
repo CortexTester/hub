@@ -1,0 +1,5 @@
+    {
+    "senderId": 1,
+    "receiverIds": [2, 3],
+    "dialectId":1
+    }

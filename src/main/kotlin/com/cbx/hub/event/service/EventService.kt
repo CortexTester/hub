@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service
 class EventService(val eventRepository: EventRepository) {
     fun test() = "from event service"
     fun addEvent(senderId: Long, receiverId: Long, dialect: String, eventTypeId: Int, contentLocation: String) : Long?{
-        return eventRepository.save(Event(senderId = senderId, receiverId = receiverId, dialect = dialect, eventTypeId = eventTypeId, contentLocation = contentLocation)).id
+        return 1L
+       // return eventRepository.save(Event(senderId = senderId, receiverId = receiverId, dialect = dialect, eventTypeId = eventTypeId, contentLocation = contentLocation)).id
     }
 
 //    @KafkaListener(topics = ["event"], groupId = "event-id",  containerFactory = "eventKafkaListenerContainerFactory")

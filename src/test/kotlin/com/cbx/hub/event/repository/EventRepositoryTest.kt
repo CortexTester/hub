@@ -1,7 +1,9 @@
 package com.cbx.hub.event.repository
 
 import com.cbx.hub.IntegrationBaseTest
+import com.cbx.hub.event.model.ContentLocation
 import com.cbx.hub.event.model.Event
+import com.cbx.hub.event.model.Receiver
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,14 +17,24 @@ class EventRepositoryTest : IntegrationBaseTest() {
     lateinit var eventRepository: EventRepository
 
     @Test
-    fun `add event`(){
+    fun `add event`() {
+
         val event = Event(
             senderId = 1L,
-            receiverId = 2L,
             dialect = "UBL2",
-            eventTypeId = 3,
-            contentLocation = "https://aws.com"
+            eventType = "CreatedInvoice",
+            trackingId = "trackingId-111"
         )
+        val receivers = mutableListOf<Receiver>(
+            Receiver(partyId = 1, event = event),
+            Receiver(partyId = 21, event = event)
+        )
+        val locations = mutableListOf<ContentLocation>(
+            ContentLocation(fileName = "test.pdf", url = "http:aws.com/test/111-test.pdf", size = 10, event = event),
+            ContentLocation(fileName = "main.json", url = "http:aws.com/test/111-main.pdf", size = 10, event = event)
+        )
+        event.receiverIds = receivers
+        event.contents = locations
 
         eventRepository.saveAndFlush(event)
 
@@ -32,5 +44,6 @@ class EventRepositoryTest : IntegrationBaseTest() {
 
         assertThat(savedEvent.isPresent).isTrue
         assertThat(savedEvent.get().senderId).isEqualTo(event.senderId)
+        assertThat(savedEvent.get().contents.get(0).fileName).isEqualTo("test.pdf")
     }
 }
