@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.test.context.jdbc.Sql
 import org.springframework.transaction.annotation.Transactional
 
 @Transactional("routingTransactionManager")
@@ -21,6 +22,7 @@ class PartyRepositoryTest : IntegrationBaseTest() {
     lateinit var dialectRepository: DialectRepository
 
     @Test
+//    @Sql("/seed-data.sql")
     fun `test party`() {
         var party = Party(name = "party01", url = "https://cbx.com", clientSidePartyId = 1L, apiKey = "testKey")
         partyRepository.saveAndFlush(party)

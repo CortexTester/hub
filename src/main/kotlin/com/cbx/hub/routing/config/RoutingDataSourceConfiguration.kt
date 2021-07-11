@@ -47,7 +47,7 @@ class RoutingDataSourceConfiguration (){
         builder: EntityManagerFactoryBuilder, @Qualifier("routingDataSource") dataSource: DataSource?
     ): LocalContainerEntityManagerFactoryBean? {
 //        val properties: MutableMap<String, Any> = HashMap()
-//        properties[AvailableSettings.HBM2DDL_AUTO] = "create-drop"  //todo: change to configurable
+//        properties[AvailableSettings.] = "create-drop"  //todo: change to configurable
 //        properties[AvailableSettings.DIALECT] = "org.hibernate.dialect.PostgreSQLDialect"
         return builder
             .dataSource(dataSource)

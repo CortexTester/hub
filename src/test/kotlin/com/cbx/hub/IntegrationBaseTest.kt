@@ -18,6 +18,7 @@ class IntegrationBaseTest {
         @Container
         private val routingSQLContainer = PostgreSQLContainer<Nothing>("postgres:latest").apply {
             withReuse(true)
+//            withInitScript("seed-data.sql")
         }
 
         @Container
