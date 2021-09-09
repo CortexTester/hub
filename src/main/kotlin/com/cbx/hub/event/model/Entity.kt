@@ -18,11 +18,12 @@ data class Event(
     var dialectId: Long,
     var eventType: String,
     var trackingId: String,
+    var action: String,
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "event")
     var contents: MutableList<ContentLocation> = mutableListOf()
 ){
     override fun toString(): String {
-        return "event id: $id senderId:$senderId receiverIds: ${receiverIds.map { x->x.id }} trackingId:$trackingId "
+        return "event id: $id senderId:$senderId receiverIds: ${receiverIds.map { x->x.id }} trackingId:$trackingId dialectId:$dialectId eventType:$eventType action:$action "
     }
 }
 

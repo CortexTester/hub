@@ -12,4 +12,12 @@ inline fun <reified T> T.logger(): Logger {
     return LoggerFactory.getLogger(T::class.java)
 }
 
+object EventMetadata {
+    const val name = "metaData.json"
+}
+
+//enum class DocType{
+//    JSON, PDF
+//}
+
 

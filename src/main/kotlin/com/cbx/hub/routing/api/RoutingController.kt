@@ -1,13 +1,8 @@
-package com.cbx.hub.routing.controller
+package com.cbx.hub.routing.api
 
-import com.cbx.hub.routing.model.Party
 import com.cbx.hub.routing.model.PartyDto
 import com.cbx.hub.routing.service.RoutingService
-import java.security.Principal
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -23,7 +18,7 @@ class RoutingController {
 
         return routingService.addPartyToRegistry(
             name = party.name,
-            partyId = party.clientSidePartyId.toLong(),
+            partyId = party.clientSidePartyId ?: 0L,
             dialectIds = party.dialects.map { x->x.toLong() }.toMutableList(),
             url = party.url,
             apiKey = party.apiKey).toString()

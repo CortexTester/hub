@@ -21,7 +21,7 @@ class EventRepositoryTest : IntegrationBaseTest() {
 
         val event = Event(
             senderId = 1L,
-            dialect = "UBL2",
+            dialectId = 1L,
             eventType = "CreatedInvoice",
             trackingId = "trackingId-111"
         )
@@ -30,8 +30,8 @@ class EventRepositoryTest : IntegrationBaseTest() {
             Receiver(partyId = 21, event = event)
         )
         val locations = mutableListOf<ContentLocation>(
-            ContentLocation(fileName = "test.pdf", url = "http:aws.com/test/111-test.pdf", size = 10, event = event),
-            ContentLocation(fileName = "main.json", url = "http:aws.com/test/111-main.pdf", size = 10, event = event)
+            ContentLocation(fileName = "test.pdf", url = "http:aws.com/test/111-test.pdf", size = 10, event = event, fileType ="pdf"),
+            ContentLocation(fileName = "main.json", url = "http:aws.com/test/111-main.pdf", size = 10, event = event, fileType = "json")
         )
         event.receiverIds = receivers
         event.contents = locations
